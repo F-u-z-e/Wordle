@@ -222,8 +222,7 @@ fn main() {
                     break 'solve;
                 }
                 //Still solving for the word
-                println!("Your best guesses are...");
-                let mut word_scores: Vec<(Word, usize)> = Vec::new();
+                println!("Your best guess is...");
                 let mut best_guess: (Word, usize) = (Word::new("aaaaa"), 10000000);
                 let mut progress: usize = 0;
                 'guess_word: for guess_word in guess_word_list {
@@ -258,7 +257,7 @@ fn main() {
                             guess_remaining_words += response_history[response_spot.unwrap()].1;
                             if guess_remaining_words > best_guess.1 {
                                 progress += 1;
-                                println!("{} - ({}: [its bad idk what the score is])", progress, guess_word.as_string());
+                                println!("{} - ({}: [bad])", progress, guess_word.as_string());
                                 continue 'guess_word;
                             }
                             continue 'answer_word;
@@ -282,7 +281,7 @@ fn main() {
                             guess_remaining_words += 1;
                             if guess_remaining_words > best_guess.1 {
                                 progress += 1;
-                                println!("{} - ({}: [its bad idk what the score is])", progress, guess_word.as_string());
+                                println!("{} - ({}: [bad])", progress, guess_word.as_string());
                                 continue 'guess_word;
                             }
                             answer_remaining_words += 1;
@@ -292,44 +291,11 @@ fn main() {
                     //its the best word
                     best_guess = (guess_word, guess_remaining_words);
                     
-                    let most_remaining_words: usize = possible_words.len().pow(2);
-                    let guess_points: usize;
-                    if (most_remaining_words - guess_remaining_words) == 0 {
-                        guess_points = 0;
-                        word_scores.push((guess_word, 0));
-                    }
-                    else {
-                        guess_points = (possible_words.len().pow(2)) - guess_remaining_words;
-                        word_scores.push((guess_word, guess_points));
-                    }
+                    let guess_points: usize = (possible_words.len().pow(2)) - guess_remaining_words;
                     progress += 1;
                     println!("{} - ({}: {})", progress, guess_word.as_string(), guess_points);
                 }
-                {
-                    //sort word scores
-
-                    let mut best_words: [(Word, usize); 10] = [(Word::new("aaaaa"), 0); 10];
-                    for i in word_scores {
-                    //i is the word
-                        'word: for j in 0..best_words.len() {
-                            let cur_word = best_words[j];
-                            //cur_word is the element in the best_words array
-                            if i.1 < cur_word.1 { //if word is worse than the array item, add it to the array and move to the next word
-                                if !(j == 0) {
-                                    best_words[j-1] = i;
-                                }
-                                break 'word;
-                            }
-                            if j == 9 {
-                                best_words[9] = i;
-                            }
-                        }
-                    }
-                    best_words.reverse();
-                    for i in best_words {
-                    println!("{}: {}", i.0.as_string(), i.1);
-                    }
-                }
+                println!("{}: {}", best_guess.0.as_string(), possible_words.len().pow(2) - best_guess.1);
             }
             } //oops if ending
         }
