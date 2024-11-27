@@ -1,5 +1,7 @@
 It solves wordles for you.
 It tells you what to do for the most part.
+The word it tells you to guess has a score next to it -- this is just the score given to it by the funny algorithm, so I wouldn't worry about it.
+If it gives you a word that wordle doesn't let you guess I can't really help you tbh but it shouldn't happen unless you're using a weird wordle infinite website.
 
 EXTRA COMMANDS:
 quit - quits the program
