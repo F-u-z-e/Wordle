@@ -224,7 +224,7 @@ fn main() {
                 //Still solving for the word
                 println!("Your best guess is...");
                 let mut best_guess: (Word, usize) = (Word::new("aaaaa"), 10000000);
-                let mut progress: usize = 0;
+                //let mut progress: usize = 0;
                 'guess_word: for guess_word in guess_word_list {
                     let mut guess_remaining_words: usize = 0;
                     let mut response_history: Vec<(Word, usize)> = Vec::new();
@@ -256,8 +256,8 @@ fn main() {
                         if !(response_spot == None) {
                             guess_remaining_words += response_history[response_spot.unwrap()].1;
                             if guess_remaining_words > best_guess.1 {
-                                progress += 1;
-                                println!("{} - ({}: [bad])", progress, guess_word.as_string());
+                                //progress += 1;
+                                //println!("{} - ({}: [bad])", progress, guess_word.as_string());
                                 continue 'guess_word;
                             }
                             continue 'answer_word;
@@ -280,8 +280,8 @@ fn main() {
                             }
                             guess_remaining_words += 1;
                             if guess_remaining_words > best_guess.1 {
-                                progress += 1;
-                                println!("{} - ({}: [bad])", progress, guess_word.as_string());
+                                //progress += 1;
+                                //println!("{} - ({}: [bad])", progress, guess_word.as_string());
                                 continue 'guess_word;
                             }
                             answer_remaining_words += 1;
@@ -291,9 +291,9 @@ fn main() {
                     //its the best word
                     best_guess = (guess_word, guess_remaining_words);
                     
-                    let guess_points: usize = (possible_words.len().pow(2)) - guess_remaining_words;
-                    progress += 1;
-                    println!("{} - ({}: {})", progress, guess_word.as_string(), guess_points);
+                    //let guess_points: usize = (possible_words.len().pow(2)) - guess_remaining_words;
+                    //progress += 1;
+                    //println!("{} - ({}: {})", progress, guess_word.as_string(), guess_points);
                 }
                 println!("{}: {}", best_guess.0.as_string(), possible_words.len().pow(2) - best_guess.1);
             }
